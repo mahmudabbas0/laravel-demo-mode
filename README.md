@@ -26,11 +26,15 @@ Compatibility with Laravel 10 and 11 is for existing projects. Their framework r
 
 ## Quick start
 
-Install the package from its [GitHub repository](https://github.com/mahmudabbas0/laravel-demo-mode). Run these commands from your Laravel application directory.
+Install the package with Composer from your Laravel application directory.
 
 ```bash
-composer config repositories.laravel-demo-mode vcs https://github.com/mahmudabbas0/laravel-demo-mode.git
-composer require 'mahmudabbas0/laravel-demo-mode:^1.0'
+composer require mahmudabbas0/laravel-demo-mode
+```
+
+Publish the configuration and the stylesheet and script used by the Blade helpers.
+
+```bash
 php artisan vendor:publish --tag=demo-mode-config
 php artisan vendor:publish --tag=demo-mode-assets
 ```
