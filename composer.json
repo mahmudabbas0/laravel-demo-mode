@@ -1,0 +1,38 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "mahmudabbas0/laravel-demo-mode",
+    "description": "Read-only portfolio demos and one-click demo accounts for Laravel 10 through 13.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/mahmudabbas0/laravel-demo-mode",
+    "support": {
+        "issues": "https://github.com/mahmudabbas0/laravel-demo-mode/issues",
+        "source": "https://github.com/mahmudabbas0/laravel-demo-mode"
+    },
+    "keywords": ["laravel", "demo", "portfolio", "read-only"],
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^10.0 || ^11.0 || ^12.0 || ^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench-core": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0 || ^13.0",
+        "mockery/mockery": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {"PortfolioLabs\\DemoMode\\": "src/"},
+        "files": ["src/helpers.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {"PortfolioLabs\\DemoMode\\Tests\\": "tests/"}
+    },
+    "extra": {
+        "laravel": {
+            "providers": ["PortfolioLabs\\DemoMode\\DemoModeServiceProvider"]
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check": ["@composer validate --strict", "@test"]
+    }
+}

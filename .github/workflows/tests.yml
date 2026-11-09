@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    name: Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { laravel: '10', testbench: '8', php: '8.1', legacy: true }
+          - { laravel: '11', testbench: '9', php: '8.2', legacy: true }
+          - { laravel: '12', testbench: '10', php: '8.2' }
+          - { laravel: '13', testbench: '11', php: '8.3' }
+          - { laravel: '13', testbench: '11', php: '8.5' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_sqlite
+          coverage: none
+      - name: Allow the legacy framework in this compatibility job
+        if: matrix.legacy
+        run: >-
+          composer config --json policy.advisories.ignore
+          '{"laravel/framework":{"on-block":false,"reason":"Legacy compatibility test only; keep audit reports visible."}}'
+      - run: >-
+          composer update --no-interaction --prefer-dist --no-progress
+          --with "laravel/framework:^${{ matrix.laravel }}.0"
+          --with "orchestra/testbench-core:^${{ matrix.testbench }}.0"
+      - run: composer check
