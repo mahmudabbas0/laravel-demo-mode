@@ -31,7 +31,7 @@ jobs:
         if: matrix.legacy
         run: >-
           composer config --json policy.advisories.ignore
-          '{"laravel/framework":{"on-block":false,"reason":"Legacy compatibility test only; keep audit reports visible."}}'
+          '{"laravel/framework":{"on-audit":false,"reason":"Legacy compatibility test only; keep audit reports visible."}}'
       - run: >-
           composer update --no-interaction --prefer-dist --no-progress
           --with "laravel/framework:^${{ matrix.laravel }}.0"
